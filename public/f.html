@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Staff Dashboard - BUDI-HR</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-gray-100">
+    <div class="min-h-screen flex">
+      <!-- Sidebar -->
+      <aside class="w-64 bg-white shadow-lg fixed h-full">
+        <div class="flex items-center justify-between p-4 border-b">
+          <h1 class="font-bold text-xl text-blue-600">BUDIJAYA</h1>
+          <button class="p-2 rounded-lg hover:bg-gray-100">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+
+        <nav class="mt-8">
+          <a
+            href="#"
+            class="w-full flex items-center p-4 bg-blue-50 text-blue-600"
+          >
+            <i class="fas fa-home mr-4"></i>
+            <span>Dashboard</span>
+          </a>
+          <a
+            href="#"
+            class="w-full flex items-center p-4 hover:bg-blue-50 text-gray-600"
+          >
+            <i class="fas fa-calendar mr-4"></i>
+            <span>Leave</span>
+          </a>
+          <a
+            href="#"
+            class="w-full flex items-center p-4 hover:bg-blue-50 text-gray-600"
+          >
+            <i class="fas fa-dollar-sign mr-4"></i>
+            <span>Payslip</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="ml-64 flex-1">
+        <!-- Top Navigation -->
+        <header class="bg-white shadow-sm">
+          <div class="flex items-center justify-between px-8 py-4">
+            <h2 class="text-xl font-semibold text-gray-800">My Dashboard</h2>
+            <div class="flex items-center space-x-4">
+              <div class="flex items-center space-x-2">
+                <span class="text-sm font-medium">Staff User</span>
+              </div>
+              <button class="p-2 rounded-lg hover:bg-gray-100">
+                <i class="fas fa-sign-out-alt"></i>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="p-8">
+          <!-- Quick Actions -->
+          <div
+            class="mb-10 bg-gradient-to-r text-black p-6 text-center transform transition-all"
+          >
+            <h2 class="text-3xl font-bold mb-2">Hello, Employee!</h2>
+            <p class="text-lg font-medium text-black/90">
+              Welcome back to BUDIJAYA LETS GET READY FOR THE WORK!!
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div
+              class="bg-white rounded-2xl shadow-sm p-6 hover:shadow-md transition-all duration-200"
+            >
+              <div class="flex justify-between items-center">
+                <div>
+                  <p class="text-sm text-gray-500 mb-1">Leave Balance</p>
+                  <p class="text-2xl font-bold text-gray-800">12 days</p>
+                </div>
+                <div
+                  class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center"
+                >
+                  <i class="fas fa-calendar text-blue-500 text-xl"></i>
+                </div>
+              </div>
+            </div>
+          <div
+            class="bg-white rounded-2xl shadow-sm p-6 hover:shadow-md transition-all duration-200"
+          >
+            <div class="flex justify-between items-center">
+              <div>
+                <p class="text-sm text-gray-500 mb-1">Today's Status</p>
+                <p class="text-2xl font-bold text-green-500">Present</p>
+              </div>
+              <div
+                class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center"
+              >
+                <i class="fas fa-check-circle text-green-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+          <div
+            class="bg-white rounded-2xl shadow-sm p-6 hover:shadow-md transition-all duration-200"
+          >
+            <div class="flex justify-between items-center">
+              <div>
+                <p class="text-sm text-gray-500 mb-1">Attendance Rate</p>
+                <p class="text-2xl font-bold text-gray-800">95%</p>
+              </div>
+              <div
+                class="w-12 h-12 bg-blue-50 rounded-xl flex items-center justify-center"
+              >
+                <i class="fas fa-chart-line text-blue-500 text-xl"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Attendance Card -->
+          <div class="bg-white rounded-2xl shadow-sm p-8 hover:shadow-md transition-all duration-200">
+            <div class="text-center space-y-8">
+              <div>
+                <h3 class="text-xl font-semibold mb-2">Absensi</h3>
+                <div class="text-gray-500">
+                  Tandai kehadiran dengan menekan tombol Masuk!
+                </div>
+              </div>
+
+              <button
+                id="attendanceBtn"
+                class="w-full bg-blue-500 text-white py-4 px-6 rounded-xl hover:bg-blue-600 transition-colors text-lg font-semibold shadow-sm hover:shadow-md"
+              >
+                Masuk
+              </button>
+            </div>
+          </div>
+
+          <!-- Leave Request Card -->
+          <div class="bg-white rounded-2xl shadow-sm p-8 hover:shadow-md transition-all duration-200">
+            <div class="text-center space-y-4">
+              <div class="mb-6">
+                <h3 class="text-xl font-semibold mb-2">Ajukan Cuti</h3>
+                <div class="text-gray-500">
+                  Ajukan cuti jika sedang/akan tidak hadir!
+                </div>
+              </div>
+              
+              <form class="space-y-4">
+                <select class="w-full border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50">
+                  <option>Select Leave Type</option>
+                  <option>Annual Leave</option>
+                  <option>Sick Leave</option>
+                  <option>Personal Leave</option>
+                </select>
+                <div class="grid grid-cols-2 gap-4">
+                  <input
+                    type="date"
+                    class="border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+                    placeholder="Start Date"
+                  />
+                  <input
+                  type="date"
+                  class="border rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-50"
+                  placeholder="End Date"
+                  />
+                </div>
+                <button class="w-full bg-blue-500 text-white py-4 px-6 rounded-xl hover:bg-blue-600 transition-colors shadow-sm hover:shadow-md">
+                  Kirim 
+                </button>
+              </form>
+            </div>
+            </div>
+              
+
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

@@ -30,7 +30,7 @@ export default function RootLayout({
                     rel="stylesheet"
                 />
             </head>
-            <body>
+            <body className="bg-gray-100">
                 <aside className="w-64 bg-white shadow-lg fixed h-full">
                     <div className="flex items-center justify-between p-4 border-b">
                         <h1 className="font-bold text-xl text-blue-600">BUDIJAYA</h1>

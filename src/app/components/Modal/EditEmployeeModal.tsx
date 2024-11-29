@@ -22,7 +22,7 @@ export default function EditEmployeeModal({
   const [department, setDepartment] = useState(employee?.department || '');
   const [email, setEmail] = useState(employee?.email || '');
   const [phone, setPhone] = useState(employee?.phone || '');
-  const [status, setStatus] = useState<'Active' | 'Inactive'>(employee?.status || 'Active');
+  const [status, setStatus] = useState(employee?.status || 'Active');
 
   const handleEdit = () => {
     if (employee) {

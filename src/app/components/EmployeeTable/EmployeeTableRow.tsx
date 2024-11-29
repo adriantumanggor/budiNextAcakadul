@@ -1,15 +1,23 @@
+'use client'
+
 import React from 'react';
 import { EyeIcon, PencilIcon, TrashIcon } from 'lucide-react';
 import { Karyawan } from '../../types/api';
+import { Button } from '@/app/components/ui/button';
 
 interface Props {
   employee: Karyawan;
-  onView: (employee: Karyawan) => void;
-  onEdit: (employee: Karyawan) => void;
-  onDelete: (employeeId: string) => void;
+  onView: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
 }
 
-export default function EmployeeTableRow({ employee, onView, onEdit, onDelete }: Props) {
+export default function EmployeeTableRow({ 
+  employee, 
+  onView, 
+  onEdit, 
+  onDelete 
+}: Props) {
   return (
     <tr className="border-b hover:bg-gray-50">
       <td className="px-6 py-4">{employee.name}</td>
@@ -20,7 +28,7 @@ export default function EmployeeTableRow({ employee, onView, onEdit, onDelete }:
       <td className="px-6 py-4 text-center">
         <span
           className={`px-2 py-1 rounded-full text-sm ${
-            employee.status === 'Active'
+            employee.status === 'aktif'
               ? 'bg-green-100 text-green-800'
               : 'bg-red-100 text-red-800'
           }`}
@@ -29,28 +37,35 @@ export default function EmployeeTableRow({ employee, onView, onEdit, onDelete }:
         </span>
       </td>
       <td className="px-6 py-4 text-center">
-        <button
-          onClick={() => onView(employee)}
-          className="text-blue-600 hover:text-blue-800 mx-1"
-          title="View"
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onView}
+          className="text-blue-600 hover:text-blue-800"
         >
           <EyeIcon className="h-5 w-5" />
-        </button>
-        <button
-          onClick={() => onEdit(employee)}
-          className="text-green-600 hover:text-green-800 mx-1"
-          title="Edit"
+          <span className="sr-only">View</span>
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onEdit}
+          className="text-green-600 hover:text-green-800"
         >
           <PencilIcon className="h-5 w-5" />
-        </button>
-        <button
-          onClick={() => onDelete(employee.id)}
-          className="text-red-600 hover:text-red-800 mx-1"
-          title="Delete"
+          <span className="sr-only">Edit</span>
+        </Button>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={onDelete}
+          className="text-red-600 hover:text-red-800"
         >
           <TrashIcon className="h-5 w-5" />
-        </button>
+          <span className="sr-only">Delete</span>
+        </Button>
       </td>
     </tr>
   );
 }
+

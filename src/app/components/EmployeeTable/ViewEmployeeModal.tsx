@@ -1,7 +1,7 @@
 'use client'
 
 import React from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/app/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/app/components/ui/dialog"
 import { Karyawan } from '../../types/api'
 
 interface ViewEmployeeModalProps {
@@ -17,28 +17,26 @@ export default function ViewEmployeeModal({ employee, isOpen, onClose }: ViewEmp
         <DialogHeader>
           <DialogTitle>Employee Details</DialogTitle>
         </DialogHeader>
-        <DialogDescription>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <strong>Name:</strong> {employee.name}
-            </div>
-            <div>
-              <strong>Position:</strong> {employee.position}
-            </div>
-            <div>
-              <strong>Department:</strong> {employee.department}
-            </div>
-            <div>
-              <strong>Email:</strong> {employee.email}
-            </div>
-            <div>
-              <strong>Phone:</strong> {employee.phone}
-            </div>
-            <div>
-              <strong>Status:</strong> {employee.status}
-            </div>
+        <div className="grid grid-cols-2 gap-4 mt-4">
+          <div className="text-sm">
+            <span className="font-semibold">Name:</span> {employee.name}
           </div>
-        </DialogDescription>
+          <div className="text-sm">
+            <span className="font-semibold">Position:</span> {employee.position}
+          </div>
+          <div className="text-sm">
+            <span className="font-semibold">Department:</span> {employee.department}
+          </div>
+          <div className="text-sm">
+            <span className="font-semibold">Email:</span> {employee.email}
+          </div>
+          <div className="text-sm">
+            <span className="font-semibold">Phone:</span> {employee.phone}
+          </div>
+          <div className="text-sm">
+            <span className="font-semibold">Status:</span> {employee.status}
+          </div>
+        </div>
       </DialogContent>
     </Dialog>
   )

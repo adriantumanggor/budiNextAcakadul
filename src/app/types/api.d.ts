@@ -12,11 +12,11 @@ export interface Card {
 export interface Karyawan {
     id: string;
     name: string;
-    position: String;
+    position: string;
     department: string;
     email: string;
     phone: string;
-    status: EmployeeStatus;
+    status: string;
 }
 
 // Tipe untuk data departemen

@@ -1,5 +1,5 @@
 import EmployeeTable from '../../components/EmployeeTable/EmployeeTable';
-import { getKaryawan } from '../../services/api';
+import { getKaryawan } from '../../services/karyawan';
 
 export default async function ManageUsersPage() {
   const employees = await getKaryawan();

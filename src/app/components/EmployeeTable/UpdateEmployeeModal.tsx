@@ -6,7 +6,8 @@ import { Button } from "@/app/components/ui/button"
 import { Input } from "@/app/components/ui/input"
 import { Label } from "@/app/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/app/components/ui/select"
-import { Karyawan } from '../../types/api'
+import { Karyawan } from '@/app/types/api'
+import { patchKaryawan } from '@/app/services/karyawan'
 
 interface UpdateEmployeeModalProps {
   employee: Karyawan
@@ -17,6 +18,7 @@ interface UpdateEmployeeModalProps {
 
 export default function UpdateEmployeeModal({ employee, isOpen, onClose, onUpdate }: UpdateEmployeeModalProps) {
   const [formData, setFormData] = React.useState<Karyawan>(employee)
+  const [isLoading, setIsLoading] = React.useState(false)
 
   React.useEffect(() => {
     setFormData(employee)
@@ -31,10 +33,18 @@ export default function UpdateEmployeeModal({ employee, isOpen, onClose, onUpdat
     setFormData(prev => ({ ...prev, status: value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    onUpdate(formData)
-    onClose()
+    setIsLoading(true)
+    try {
+      const updatedEmployee = await patchKaryawan(employee.id, formData)
+      onUpdate(updatedEmployee)
+      onClose()
+    } catch (error) {
+      console.error('Failed to update employee:', error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -91,7 +101,9 @@ export default function UpdateEmployeeModal({ employee, isOpen, onClose, onUpdat
             </div>
           </div>
           <DialogFooter>
-            <Button type="submit">Save changes</Button>
+            <Button type="submit" disabled={isLoading}>
+              {isLoading ? 'Updating...' : 'Save changes'}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>

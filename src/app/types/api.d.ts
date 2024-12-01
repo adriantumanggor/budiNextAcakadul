@@ -49,7 +49,7 @@ export interface Leaving {
 }
 
 // New type for manager data
-interface Manager {
+export interface Manager {
     id: string;
     name: string;
 }

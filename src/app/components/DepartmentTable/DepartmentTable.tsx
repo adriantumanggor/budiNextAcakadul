@@ -50,13 +50,13 @@ export default function DepartmentTable({ departments: initialDepartments }: Pro
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
         <table className="min-w-full">
           <thead>
-            <tr className="bg-gray-50 text-black uppercase text-sm leading-normal">
+            <tr className="bg-blue-600 text-white uppercase text-sm leading-normal">
               <th className="py-3 px-6 text-left">Department Name</th>
               <th className="py-3 px-6 text-left">Manager Name</th>
               <th className="py-3 px-6 text-center">Actions</th>
             </tr>
           </thead>
-          <tbody className="text-black text-sm font-light">
+          <tbody className="text-black">
             {departments.map((department) => (
               <DepartmentTableRow
                 key={department.id}

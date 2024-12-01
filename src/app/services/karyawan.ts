@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Karyawan } from '../types/api';
+import { Karyawan, Manager } from '../types/api';
 
 const API_BASE_URL = 'http://localhost:3000'; // Ganti dengan URL backend kamu
 
@@ -32,6 +32,7 @@ async function fetchAPI<T>(
         throw new Error(error.response?.data?.message || 'Terjadi kesalahan pada API');
     }
 }
+
 
 // Create (POST) - Tambah Karyawan Baru
 export async function createKaryawan(karyawanData: Omit<Karyawan, 'id'>): Promise<Karyawan> {
@@ -73,3 +74,9 @@ export async function deleteKaryawan(id: string): Promise<void> {
         method: 'DELETE',
     });
 }
+
+// New function to get all managers
+export async function getManagers(): Promise<Manager[]> {
+    return fetchAPI<Manager[]>('/karyawan/managers');
+}
+

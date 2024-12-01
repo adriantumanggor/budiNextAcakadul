@@ -21,10 +21,10 @@ export interface Karyawan {
 
 // Tipe untuk data departemen
 export interface Department {
-    id: string;
+    id: number;
     name: string;
     manager_name: string;
-    
+    manager_id: string;
 }
 
 // Tipe untuk data tim saya
@@ -46,4 +46,10 @@ export interface Leaving {
     id: number;
     name: string;
     reason: string;
+}
+
+// New type for manager data
+interface Manager {
+    id: string;
+    name: string;
 }

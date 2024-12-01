@@ -19,7 +19,7 @@ export default function EmployeeTableRow({
   onDelete 
 }: Props) {
   return (
-    <tr className="border-b hover:bg-gray-50">
+    <tr className="border-b hover:bg-gray-100">
       <td className="px-6 py-4">{employee.name}</td>
       <td className="px-6 py-4">{employee.position}</td>
       <td className="px-6 py-4">{employee.department}</td>

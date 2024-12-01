@@ -50,7 +50,7 @@ export default function EmployeeTable({ employees: initialEmployees }: Props) {
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
         <table className="min-w-full">
           <thead>
-            <tr className="bg-blue-600 text-white">
+            <tr className="bg-blue-600 text-white uppercase text-sm leading-normal">
               <th className="px-6 py-3 text-left">Name</th>
               <th className="px-6 py-3 text-left">Position</th>
               <th className="px-6 py-3 text-left">Department</th>

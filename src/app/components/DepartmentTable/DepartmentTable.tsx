@@ -1,5 +1,4 @@
 'use client'
-
 import React, { useState } from 'react';
 import { Department } from '../../types/api';
 import DepartmentTableRow from './DepartmentTableRow';
@@ -34,7 +33,19 @@ export default function DepartmentTable({ departments: initialDepartments }: Pro
   };
 
   const handleUpdate = (updatedDepartment: Department) => {
-    setDepartments(departments.map(dept => dept.id === updatedDepartment.id ? updatedDepartment : dept));
+    console.log('Updating department:', updatedDepartment); // Debug log
+    
+    // Ensure the updated department has all necessary properties
+    if (!updatedDepartment || !updatedDepartment.id) {
+      console.error('Invalid department update:', updatedDepartment);
+      return;
+    }
+
+    setDepartments(prevDepartments => 
+      prevDepartments.map(dept => 
+        dept.id === updatedDepartment.id ? updatedDepartment : dept
+      )
+    );
     setIsEditModalOpen(false);
   };
 
@@ -69,7 +80,6 @@ export default function DepartmentTable({ departments: initialDepartments }: Pro
           </tbody>
         </table>
       </div>
-
       {selectedDepartment && (
         <>
           <ViewDepartmentModal

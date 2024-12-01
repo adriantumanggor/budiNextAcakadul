@@ -10,7 +10,7 @@ export interface Card {
 
 // Tipe untuk data karyawan
 export interface Karyawan {
-    id: string;
+    id: number;
     name: string;
     position: string;
     department: string;
@@ -20,9 +20,11 @@ export interface Karyawan {
 }
 
 // Tipe untuk data departemen
-export interface Departemen {
-    id: number;
+export interface Department {
+    id: string;
     name: string;
+    manager_name: string;
+    
 }
 
 // Tipe untuk data tim saya

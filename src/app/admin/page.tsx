@@ -1,6 +1,7 @@
 import Greeting from "../components/Greeting/Greeting";
 import Card from "../components/Card/Card";
 import { getDataCards } from "../services/api";
+import AttendanceLeaveSystem from "../components/Attendence/AttendanceLeaveSystem";
 
 export default async function Page() {
   // Static data untuk gradient dan icon
@@ -42,7 +43,7 @@ export default async function Page() {
       <div>
         <Greeting />
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto mb-8">
         {cards.map((card, index) => (
           <Card
             key={index}
@@ -54,6 +55,7 @@ export default async function Page() {
           />
         ))}
       </div>
+      <AttendanceLeaveSystem />
     </div>
   );
 }

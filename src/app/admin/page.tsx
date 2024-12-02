@@ -1,7 +1,7 @@
-import Greeting from "../components/Greeting/Greeting";
-import Card from "../components/Card/Card";
-import { getDataCards } from "../services/api";
-import AttendanceLeaveSystem from "../components/Attendence/AttendanceLeaveSystem";
+import Greeting from "@/components/Greeting/Greeting";
+import Card from "@/components/Card/Card";
+import { getDataCards } from "@/app/services/datacards";
+import AttendanceLeaveSystem from "@/components/Attendence/AttendanceLeaveSystem";
 
 export default async function Page() {
   // Static data untuk gradient dan icon
@@ -54,6 +54,7 @@ export default async function Page() {
             iconClass={card.iconClass}
           />
         ))}
+        
       </div>
       <AttendanceLeaveSystem />
     </div>

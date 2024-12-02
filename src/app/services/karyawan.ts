@@ -1,38 +1,6 @@
-import axios from 'axios';
+// karyawanApi.ts
+import { fetchAPI } from './api'; // Import the common API function
 import { Karyawan, Manager } from '../types/api';
-
-const API_BASE_URL = 'http://localhost:3000'; // Ganti dengan URL backend kamu
-
-// Helper function to handle API calls
-async function fetchAPI<T>(
-    url: string,
-    options: { method?: string; body?: any; headers?: Record<string, string> } = {}
-): Promise<T> {
-    const { method = 'GET', body = null, headers = {} } = options;
-
-    try {
-        const response = await axios({
-            url: `${API_BASE_URL}${url}`,
-            method,
-            data: body,
-            headers: {
-                'Content-Type': 'application/json',
-                ...headers,
-            },
-        });
-        return response.data;
-    } catch (error: any) {
-        console.error('API Error:', error.message);
-
-        if (error.response) {
-            console.error('Response Data:', error.response.data);
-            console.error('Status Code:', error.response.status);
-        }
-
-        throw new Error(error.response?.data?.message || 'Terjadi kesalahan pada API');
-    }
-}
-
 
 // Create (POST) - Tambah Karyawan Baru
 export async function createKaryawan(karyawanData: Omit<Karyawan, 'id'>): Promise<Karyawan> {
@@ -79,4 +47,3 @@ export async function deleteKaryawan(id: string): Promise<void> {
 export async function getManagers(): Promise<Manager[]> {
     return fetchAPI<Manager[]>('/karyawan/managers');
 }
-

@@ -1,4 +1,4 @@
-import LeaveList from "@/app/components/Leave/LeaveList";
+import LeaveList from "@/components/Leave/LeaveList";
 
 export default function LeavePage() {
     return (

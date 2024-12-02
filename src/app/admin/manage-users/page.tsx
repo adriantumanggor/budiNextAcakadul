@@ -1,4 +1,4 @@
-import EmployeeTable from '../../components/EmployeeTable/EmployeeTable';
+import EmployeeTable from '../../../components/EmployeeTable/EmployeeTable';
 import { getKaryawan } from '../../services/karyawan';
 
 export default async function ManageUsersPage() {

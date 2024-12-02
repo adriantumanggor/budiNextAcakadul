@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react';
-import { Karyawan } from '../../types/api';
+import { Karyawan } from '../../app/types/api';
 import EmployeeTableRow from './EmployeeTableRow';
 import ViewEmployeeModal from './ViewEmployeeModal';
 import UpdateEmployeeModal from './UpdateEmployeeModal';

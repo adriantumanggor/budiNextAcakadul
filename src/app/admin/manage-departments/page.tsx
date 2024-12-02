@@ -1,4 +1,4 @@
-import DepartmentTable from '../../components/DepartmentTable/DepartmentTable';
+import DepartmentTable from '../../../components/DepartmentTable/DepartmentTable';
 import { getDepartemen } from '@/app/services/departmen';
 
 export default async function ManageUsersPage() {

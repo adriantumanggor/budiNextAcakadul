@@ -1,7 +1,38 @@
 import React from "react";
-import { StaffNavbar } from "../components/Navbar";
+import { StaffNavbar } from "../../components/Navbar";
+import { useRouter } from "next/router";
+import Cookies from "js-cookie";
+import jwt from 'jsonwebtoken'
+
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
+    const router = useRouter()
+
+    const handleLogout = () => {
+        const decodedToken = jwt.decode(Cookies.get('auth_token') || '');
+
+        if (decodedToken) {
+
+            Object.keys(decodedToken).forEach((key) => {
+
+                Cookies.remove(key); // Remove each cookie set from the token
+
+            });
+
+        }
+
+        // Also clear specific cookies
+
+        Cookies.remove('auth_token'); // Remove the JWT token
+
+        Cookies.remove('user_role'); // Remove the user role
+
+
+        // Redirect the user to the login page or home page
+
+        router.push('/login');
+    }
+
     return (
         <div className="flex">
             {/* Sidebar */}
@@ -22,7 +53,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                             <div className="flex items-center space-x-2">
                                 <span className="text-sm font-medium">Staff User</span>
                             </div>
-                            <button className="p-2 rounded-lg hover:bg-gray-100">
+                            <button
+                                onClick={handleLogout}
+                                className="p-2 rounded-lg hover:bg-gray-100">
                                 <i className="fas fa-sign-out-alt"></i>
                             </button>
                         </div>

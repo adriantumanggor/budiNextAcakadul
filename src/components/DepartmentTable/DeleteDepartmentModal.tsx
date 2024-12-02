@@ -1,7 +1,7 @@
 import React from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/app/components/ui/dialog";
-import { Button } from "@/app/components/ui/button";
-import { Department } from '../../types/api';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Department } from '../../app/types/api';
 
 interface DeleteDepartmentModalProps {
   department: Department;

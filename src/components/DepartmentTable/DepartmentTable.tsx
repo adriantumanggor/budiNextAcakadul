@@ -1,6 +1,6 @@
 'use client'
 import React, { useState } from 'react';
-import { Department } from '../../types/api';
+import { Department } from '../../app/types/api';
 import DepartmentTableRow from './DepartmentTableRow';
 import ViewDepartmentModal from './ViewDepartmentModal';
 import UpdateDepartmentModal from './UpdateDepartmentModal';
@@ -35,7 +35,6 @@ export default function DepartmentTable({ departments: initialDepartments }: Pro
   const handleUpdate = (updatedDepartment: Department) => {
     console.log('Updating department:', updatedDepartment); // Debug log
     
-    // Ensure the updated department has all necessary properties
     if (!updatedDepartment || !updatedDepartment.id) {
       console.error('Invalid department update:', updatedDepartment);
       return;

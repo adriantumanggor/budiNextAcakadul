@@ -31,6 +31,12 @@ export default function AdminNavbar() {
                     <span>Manage departments</span>
                 </div>
             </Link>
+            <Link href="/admin/manage-attendance">
+                <div className={linkClass("/admin/manage-attendance")}>
+                    <i className="fas fa-clock mr-4"></i>
+                    <span>Manage Attenndance</span>
+                </div>
+            </Link>
         </div>
     );
 }

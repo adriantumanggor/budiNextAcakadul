@@ -1,6 +1,6 @@
-import AttendanceLeaveSystem from "../components/Attendence/AttendanceLeaveSystem";
-import Greeting from "../components/Greeting/Greeting";
-import StatusCards from "@/app/components/Card/StatusCards"
+import AttendanceLeaveSystem from "../../components/Attendence/AttendanceLeaveSystem";
+import Greeting from "../../components/Greeting/Greeting";
+import StatusCards from "@/components/Card/StatusCards"
 
 export default async function Page() {
 

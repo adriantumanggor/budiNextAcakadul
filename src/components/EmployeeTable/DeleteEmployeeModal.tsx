@@ -1,8 +1,8 @@
 'use client'
 import React from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/app/components/ui/dialog"
-import { Button } from "@/app/components/ui/button"
-import { Karyawan } from '../../types/api'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import { Karyawan } from '../../app/types/api'
 import { deleteKaryawan } from '@/app/services/karyawan'
 
 interface DeleteEmployeeModalProps {

@@ -2,8 +2,8 @@
 
 import React from 'react';
 import { EyeIcon, PencilIcon, TrashIcon } from 'lucide-react';
-import { Karyawan } from '../../types/api';
-import { Button } from '@/app/components/ui/button';
+import { Karyawan } from '../../app/types/api';
+import { Button } from '@/components/ui/button';
 
 interface Props {
   employee: Karyawan;

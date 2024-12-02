@@ -1,4 +1,4 @@
-import PayslipTable from "@/app/components/Payslip/PayslipTable";
+import PayslipTable from "@/components/Payslip/PayslipTable";
 
 export default function PayslipPage() {
     return (

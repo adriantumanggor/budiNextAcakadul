@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
-import { Button } from "@/app/components/ui/button"
+import { Button } from "@/components/ui/button"
+
 import {
     Dialog,
     DialogContent,
@@ -8,7 +9,7 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-} from "@/app/components/ui/dialog"
+} from "@/components/ui/dialog"
 
 export default function AttendanceCard() {
     const [attendanceStatus, setAttendanceStatus] = useState('Masuk')

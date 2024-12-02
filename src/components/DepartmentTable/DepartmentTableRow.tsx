@@ -1,6 +1,6 @@
 import React from 'react';
-import { Department } from '../../types/api';
-import { Button } from '@/app/components/ui/button';
+import { Department } from '../../app/types/api';
+import { Button } from '@/components/ui/button';
 import { Eye, PencilIcon, TrashIcon } from 'lucide-react';
 
 interface Props {

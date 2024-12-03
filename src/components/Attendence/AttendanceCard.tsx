@@ -1,7 +1,6 @@
 'use client'
 import { useState } from 'react'
 import { Button } from "@/components/ui/button"
-
 import {
     Dialog,
     DialogContent,
@@ -10,6 +9,8 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog"
+import { useAuth } from "@/context/authContext"
+import { createAbsensi } from "@/app/services/attendance"
 
 export default function AttendanceCard() {
     const [attendanceStatus, setAttendanceStatus] = useState('Masuk')
@@ -17,17 +18,26 @@ export default function AttendanceCard() {
     const [isAttendanceCompleted, setIsAttendanceCompleted] = useState(false)
     const [isOutMessageOpen, setIsOutMessageOpen] = useState(false)
 
+    const { user } = useAuth()
+    const karyawan_id = user?.karyawan_id || '';
 
-    const handleMasukConfirmation = () => {
-        setAttendanceStatus('Keluar')
-        setIsConfirmDialogOpen(false)
-    }
+    const handleAttendanceConfirmation = async () => {
+        try {
+            console.log(karyawan_id)
+            await createAbsensi(String(karyawan_id));
 
-    const handleKeluarConfirmation = () => {
-        setAttendanceStatus('Keluar')
+
+            if (attendanceStatus === 'Masuk') {
+                setAttendanceStatus('Keluar')
+            } else {
+                setIsAttendanceCompleted(true)
+                setIsOutMessageOpen(true)
+            }
+        } catch (error) {
+            console.error('Error creating attendance:', error)
+        }
+
         setIsConfirmDialogOpen(false)
-        setIsAttendanceCompleted(true)
-        setIsOutMessageOpen(true)
     }
 
     return (
@@ -47,10 +57,10 @@ export default function AttendanceCard() {
                     disabled={isAttendanceCompleted}
                     onClick={() => setIsConfirmDialogOpen(true)}
                     className={`w-full py-4 px-6 rounded-xl text-lg font-semibold shadow-sm hover:shadow-md ${isAttendanceCompleted
-                            ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                            : (attendanceStatus === 'Masuk'
-                                ? 'bg-blue-500 hover:bg-blue-600 text-white'
-                                : 'bg-red-500 hover:bg-red-600 text-white')
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        : (attendanceStatus === 'Masuk'
+                            ? 'bg-blue-500 hover:bg-blue-600 text-white'
+                            : 'bg-red-500 hover:bg-red-600 text-white')
                         }`}
                 >
                     {attendanceStatus}
@@ -72,20 +82,13 @@ export default function AttendanceCard() {
                             >
                                 Batal
                             </Button>
-                            <Button
-                                onClick={() => {
-                                    if (attendanceStatus === 'Masuk') {
-                                        handleMasukConfirmation()
-                                    } else {
-                                        handleKeluarConfirmation()
-                                    }
-                                }}
-                            >
+                            <Button onClick={handleAttendanceConfirmation}>
                                 Konfirmasi
                             </Button>
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
+
                 {/* Out Message Dialog */}
                 <Dialog open={isOutMessageOpen} onOpenChange={setIsOutMessageOpen}>
                     <DialogContent>
@@ -100,8 +103,8 @@ export default function AttendanceCard() {
                         </DialogFooter>
                     </DialogContent>
                 </Dialog>
-
             </div>
         </div>
     )
 }
+

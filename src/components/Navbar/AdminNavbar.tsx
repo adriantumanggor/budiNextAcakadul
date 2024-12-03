@@ -37,6 +37,12 @@ export default function AdminNavbar() {
                     <span>Manage Attenndance</span>
                 </div>
             </Link>
+            <Link href="/admin/leave-requests">
+                <div className={linkClass("/admin/leave-requests")}>
+                    <i className="fas fa-calendar mr-4"></i>
+                    <span>Leave Requests</span>
+                </div>
+            </Link>
         </div>
     );
 }

@@ -36,7 +36,13 @@ export interface MyTeam {
 
 // Tipe untuk data kehadiran (attendance)
 export interface Attendance {
-    karyawan_is: string;
+    id: number;
+    karyawan_id: string;
+    tanggal: string;
+    waktu_masuk: string;
+    waktu_keluar: string;
+    status_absensi: string;
+    is_complete: boolean;
 }
 
 // Tipe untuk data izin/cuti (leaving)

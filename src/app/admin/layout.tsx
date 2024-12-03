@@ -4,13 +4,18 @@ import React from "react";
 import { AdminNavbar } from "../../components/Navbar";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
+import { useAuth } from "@/context/authContext";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const router = useRouter(); // Gunakan hook useRouter
+    const { user } = useAuth()
+    const karyawan_id = user?.karyawan_id || '';
+
 
     const handleLogout = () => {
         try {
             // Hapus cookie spesifik
+            localStorage.removeItem(`attendance_completed_${karyawan_id}`); // Hapus status lokal
             Cookies.remove("auth_token");
 
             // Redirect ke halaman login

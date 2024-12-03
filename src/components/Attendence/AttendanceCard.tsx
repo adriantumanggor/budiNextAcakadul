@@ -21,18 +21,24 @@ export default function AttendanceCard() {
     const { user } = useAuth()
     const karyawan_id = user?.karyawan_id || '';
     const is_completed = user?.is_completed; // boolean from context
+    // console.log("is "+is_completed);
 
+    if (is_completed) {
+        localStorage.setItem(`attendance_completed_${karyawan_id}`, 'true')
+    }
     // Effect to load completed status from localStorage on component mount
     useEffect(() => {
         const storedCompletedStatus = localStorage.getItem(`attendance_completed_${karyawan_id}`)
         if (storedCompletedStatus === 'true') {
             setLocalCompletedStatus(true)
         }
+        
     }, [karyawan_id])
-
+    console.log("nilai:" + localStorage.getItem(`attendance_completed_${karyawan_id}`))
+    
     const handleAttendanceConfirmation = async () => {
         try {
-            console.log(karyawan_id)
+            // console.log(karyawan_id)
             await createAbsensi(String(karyawan_id));
 
             if (is_completed || localCompletedStatus) {

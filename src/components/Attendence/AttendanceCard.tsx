@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import {
     Dialog,
@@ -13,24 +13,38 @@ import { useAuth } from "@/context/authContext"
 import { createAbsensi } from "@/app/services/attendance"
 
 export default function AttendanceCard() {
-    const [attendanceStatus, setAttendanceStatus] = useState('Masuk')
     const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false)
-    const [isAttendanceCompleted, setIsAttendanceCompleted] = useState(false)
+    const [attendanceStatus, setAttendanceStatus] = useState('Masuk')
     const [isOutMessageOpen, setIsOutMessageOpen] = useState(false)
+    const [localCompletedStatus, setLocalCompletedStatus] = useState(false)
 
     const { user } = useAuth()
     const karyawan_id = user?.karyawan_id || '';
+    const is_completed = user?.is_completed; // boolean from context
+
+    // Effect to load completed status from localStorage on component mount
+    useEffect(() => {
+        const storedCompletedStatus = localStorage.getItem(`attendance_completed_${karyawan_id}`)
+        if (storedCompletedStatus === 'true') {
+            setLocalCompletedStatus(true)
+        }
+    }, [karyawan_id])
 
     const handleAttendanceConfirmation = async () => {
         try {
             console.log(karyawan_id)
             await createAbsensi(String(karyawan_id));
 
+            if (is_completed || localCompletedStatus) {
+                return
+            }
 
             if (attendanceStatus === 'Masuk') {
                 setAttendanceStatus('Keluar')
             } else {
-                setIsAttendanceCompleted(true)
+                setLocalCompletedStatus(true)
+                localStorage.setItem(`attendance_completed_${karyawan_id}`, 'true')
+                setAttendanceStatus('Selesai')
                 setIsOutMessageOpen(true)
             }
         } catch (error) {
@@ -40,13 +54,26 @@ export default function AttendanceCard() {
         setIsConfirmDialogOpen(false)
     }
 
+    // Determine if button should be disabled
+    const isButtonDisabled = is_completed || localCompletedStatus;
+
+    // Determine button classes based on completion status
+    const getButtonClasses = () => {
+        if (isButtonDisabled) {
+            return 'bg-gray-300 text-gray-500 cursor-not-allowed'
+        }
+        return attendanceStatus === 'Masuk'
+            ? 'bg-blue-500 hover:bg-blue-600 text-white'
+            : 'bg-red-500 hover:bg-red-600 text-white'
+    }
+
     return (
         <div className="bg-white rounded-2xl shadow-sm p-8 hover:shadow-md transition-all duration-200">
             <div className="text-center space-y-8">
                 <div>
                     <h3 className="text-xl font-semibold mb-2">Absensi</h3>
                     <div className="text-gray-500">
-                        {isAttendanceCompleted
+                        {isButtonDisabled
                             ? "Sampai jumpa di besok hari!"
                             : `Tandai kehadiran dengan menekan tombol ${attendanceStatus}!`}
                     </div>
@@ -54,16 +81,11 @@ export default function AttendanceCard() {
 
                 {/* Main Attendance Button */}
                 <Button
-                    disabled={isAttendanceCompleted}
+                    disabled={isButtonDisabled}
                     onClick={() => setIsConfirmDialogOpen(true)}
-                    className={`w-full py-4 px-6 rounded-xl text-lg font-semibold shadow-sm hover:shadow-md ${isAttendanceCompleted
-                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                        : (attendanceStatus === 'Masuk'
-                            ? 'bg-blue-500 hover:bg-blue-600 text-white'
-                            : 'bg-red-500 hover:bg-red-600 text-white')
-                        }`}
+                    className={`w-full py-4 px-6 rounded-xl text-lg font-semibold shadow-sm hover:shadow-md ${getButtonClasses()}`}
                 >
-                    {attendanceStatus}
+                    {isButtonDisabled ? 'Selesai' : attendanceStatus}
                 </Button>
 
                 {/* Confirmation Dialog */}
@@ -107,4 +129,3 @@ export default function AttendanceCard() {
         </div>
     )
 }
-

@@ -4,19 +4,12 @@ import React from "react";
 import { AdminNavbar } from "../../components/Navbar";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import jwt from "jsonwebtoken";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
     const router = useRouter(); // Gunakan hook useRouter
 
     const handleLogout = () => {
         try {
-            // const token = Cookies.get("auth_token");
-            // if (token) {
-            //     const decodedToken = jwt.decode(token);
-            // }
-
-
             // Hapus cookie spesifik
             Cookies.remove("auth_token");
 

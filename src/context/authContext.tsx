@@ -5,19 +5,19 @@ import Cookies from 'js-cookie'
 import jwt from 'jsonwebtoken'
 
 interface AuthContextType {
-  user: { user_id: string; karyawan_id: string; username: string } | null
-  setUser: (user: { user_id: string; karyawan_id: string; username: string } | null) => void
+  user: { user_id: string; karyawan_id: string; username: string, is_completed:boolean } | null
+  setUser: (user: { user_id: string; karyawan_id: string; username: string, is_completed:boolean } | null) => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<{ user_id: string; karyawan_id: string; username: string } | null>(null)
+  const [user, setUser] = useState<{ user_id: string; karyawan_id: string; username: string, is_completed:boolean } | null>(null)
 
   useEffect(() => {
     const token = Cookies.get('auth_token')
     if (token) {
-      const decoded = jwt.decode(token) as { user_id: string; karyawan_id: string; username: string } | null
+      const decoded = jwt.decode(token) as { user_id: string; karyawan_id: string; username: string, is_completed:boolean } | null
       if (decoded) {
         setUser(decoded)
       }

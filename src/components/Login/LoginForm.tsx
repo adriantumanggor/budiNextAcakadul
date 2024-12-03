@@ -17,7 +17,7 @@ export default function LoginForm() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const router = useRouter()
-  const { setUser } = useAuth() 
+  const { setUser } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -25,15 +25,16 @@ export default function LoginForm() {
 
     try {
       const response = await login({ username, password })
-      
-      Cookies.set('auth_token', response.token, { expires: 7 })
-      
-      const decodedToken = jwt.decode(response.token) as { user_id: string; karyawan_id: string; username: string; role: string }
+
+      Cookies.set('auth_token', response.token, { expires: 1 })
+
+      const decodedToken = jwt.decode(response.token) as { user_id: string; karyawan_id: string; username: string; role: string, is_completed: boolean }
 
       setUser({
         user_id: decodedToken.user_id,
         karyawan_id: decodedToken.karyawan_id,
-        username: decodedToken.username
+        username: decodedToken.username,
+        is_completed: decodedToken.is_completed
       })
 
       const userRole = decodedToken?.role;

@@ -1,37 +1,26 @@
+'use client';
+
 import React from "react";
 import { StaffNavbar } from "../../components/Navbar";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
-import jwt from 'jsonwebtoken'
+import { useAuth } from "@/context/authContext";
 
-
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
-    const router = useRouter()
+export default function StaffLayout({ children }: { children: React.ReactNode }) {
+    const router = useRouter(); // Gunakan useRouter
+    const { user } = useAuth();
+    const karyawan_id = user?.karyawan_id || '';
 
     const handleLogout = () => {
-        const decodedToken = jwt.decode(Cookies.get('auth_token') || '');
+        try {
+            localStorage.removeItem(`attendance_completed_${karyawan_id}`); // Hapus status lokal
+            Cookies.remove("auth_token");
 
-        if (decodedToken) {
-
-            Object.keys(decodedToken).forEach((key) => {
-
-                Cookies.remove(key); // Remove each cookie set from the token
-
-            });
-
+            router.push("/login");
+        } catch (error) {
+            console.error("Logout failed:", error);
         }
-
-        // Also clear specific cookies
-
-        Cookies.remove('auth_token'); // Remove the JWT token
-
-        Cookies.remove('user_role'); // Remove the user role
-
-
-        // Redirect the user to the login page or home page
-
-        router.push('/login');
-    }
+    };
 
     return (
         <div className="flex">
@@ -44,7 +33,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </aside>
 
             {/* Main Content */}
-            <main className="ml-64 flex-1 ">
+            <main className="ml-64 flex-1">
                 {/* Header */}
                 <header className="bg-white shadow-sm">
                     <div className="flex items-center justify-between px-8 py-4">

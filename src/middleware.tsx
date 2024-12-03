@@ -26,8 +26,8 @@ export function middleware(request: NextRequest) {
       if (role === 'admin' && !request.nextUrl.pathname.startsWith('/admin')) {
         return NextResponse.redirect(new URL('/admin', request.url))
       }
-      if (role === 'staff' && !request.nextUrl.pathname.startsWith('/staff')) {
-        return NextResponse.redirect(new URL('/staff', request.url))
+      if (role === 'staff' && !request.nextUrl.pathname.startsWith('/karyawan')) {
+        return NextResponse.redirect(new URL('/karyawan', request.url))
       }
       if (role === 'manager' && !request.nextUrl.pathname.startsWith('/manager')) {
         return NextResponse.redirect(new URL('/manager', request.url))

@@ -1,15 +1,14 @@
 "use client"
-import Link from 'next/link'
+import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-
 export default function Sidebar() {
-    const pathname = usePathname()
+    const pathname = usePathname();
 
     const linkClass = (path: string) =>
         pathname === path
             ? "w-full flex items-center p-4 bg-blue-50 text-blue-600"
-            : "w-full flex items-center p-4 hover:bg-blue-50 text-gray-600"
+            : "w-full flex items-center p-4 hover:bg-blue-50 text-gray-600";
 
     return (
         <nav className="mt-8">
@@ -32,5 +31,5 @@ export default function Sidebar() {
                 </div>
             </Link>
         </nav>
-    )
+    );
 }

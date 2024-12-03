@@ -1,10 +1,37 @@
+'use client'
 
-export default async function LeaveRequestsPage() {
-    return (
-        <div className="p-6">
-            <h1 className="text-2xl font-bold mb-4">Leave Requests</h1>
-            {/* Add your attendance management components here */}
-            
-        </div>
-    );
+import React from 'react'
+import { LeaveRequest } from '@/components/LeaveRequests/LeaveRequests'
+import { useLeaveRequests, LeaveRequestsProvider } from '@/context/LeaveRequestsContext'
+
+function LeaveRequestsContent() {
+  const { leaveRequests, handleApprove, handleReject } = useLeaveRequests()
+
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl font-bold mb-4">Leave Requests</h1>
+      <div className="space-y-4">
+        {leaveRequests.map(request => (
+          <LeaveRequest
+            key={request.id}
+            employee={request.employee}
+            type={request.type}
+            duration={request.duration}
+            status={request.status}
+            onApprove={() => handleApprove(request.id)}
+            onReject={() => handleReject(request.id)}
+          />
+        ))}
+      </div>
+    </div>
+  )
 }
+
+export default function LeaveRequestsPage() {
+  return (
+    <LeaveRequestsProvider>
+      <LeaveRequestsContent />
+    </LeaveRequestsProvider>
+  )
+}
+

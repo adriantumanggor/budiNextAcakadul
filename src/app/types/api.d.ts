@@ -57,3 +57,11 @@ export interface Manager {
     id: string;
     name: string;
 }
+
+export interface LeaveRequestData {
+    id: number;
+    employee: string;
+    type: string;
+    duration: string;
+    status: 'Pending' | 'Approved' | 'Rejected';
+}

@@ -21,7 +21,6 @@ export default function AttendanceCard() {
     const { user } = useAuth()
     const karyawan_id = user?.karyawan_id || '';
     const is_completed = user?.is_completed; // boolean from context
-    // console.log("is "+is_completed);
 
     if (is_completed) {
         localStorage.setItem(`attendance_completed_${karyawan_id}`, 'true')

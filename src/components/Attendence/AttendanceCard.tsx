@@ -38,7 +38,6 @@ export default function AttendanceCard() {
     
     const handleAttendanceConfirmation = async () => {
         try {
-            // console.log(karyawan_id)
             await createAbsensi(String(karyawan_id));
 
             if (is_completed || localCompletedStatus) {

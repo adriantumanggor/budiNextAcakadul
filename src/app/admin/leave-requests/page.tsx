@@ -3,9 +3,14 @@
 import React from 'react'
 import { LeaveRequest } from '@/components/LeaveRequests/LeaveRequests'
 import { useLeaveRequests, LeaveRequestsProvider } from '@/context/LeaveRequestsContext'
+import { Card, CardContent } from '@/components/ui/card'
 
 function LeaveRequestsContent() {
   const { leaveRequests, handleApprove, handleReject } = useLeaveRequests()
+
+  const pendingRequests = leaveRequests.filter(request => request.status === 'Pending').length
+  const approvedRequests = leaveRequests.filter(request => request.status === 'Approved').length
+  const rejectedRequests = leaveRequests.filter(request => request.status === 'Rejected').length
 
   return (
     <div className="p-6">
@@ -17,6 +22,8 @@ function LeaveRequestsContent() {
             employee={request.employee}
             type={request.type}
             duration={request.duration}
+            start_date={request.start_date}
+            end_date={request.end_date}
             status={request.status}
             onApprove={() => handleApprove(request.id)}
             onReject={() => handleReject(request.id)}

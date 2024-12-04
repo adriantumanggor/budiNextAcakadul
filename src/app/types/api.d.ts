@@ -63,5 +63,7 @@ export interface LeaveRequestData {
     employee: string;
     type: string;
     duration: string;
+    start_date: string;
+    end_date: string;
     status: 'Pending' | 'Approved' | 'Rejected';
 }

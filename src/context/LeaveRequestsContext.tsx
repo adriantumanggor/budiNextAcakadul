@@ -1,72 +1,54 @@
 'use client'
 
-import { createContext, useContext, useState, ReactNode, useEffect } from 'react'
+import React, { createContext, useContext, useState, useEffect } from 'react'
 import { LeaveRequestData } from '@/app/types/api'
-import * as leaveService from '@/app/services/leave'
+import { getLeaveRequests, approve, reject } from '@/app/services/leave'
 
 interface LeaveRequestsContextType {
   leaveRequests: LeaveRequestData[]
-  isLoading: boolean
-  handleApprove: (id: number) => Promise<void>
-  handleReject: (id: number) => Promise<void>
+  handleApprove: (id: number) => void
+  handleReject: (id: number) => void
 }
 
 const LeaveRequestsContext = createContext<LeaveRequestsContextType | undefined>(undefined)
 
-export const LeaveRequestsProvider = ({ children }: { children: ReactNode }) => {
+export function LeaveRequestsProvider({ children }: { children: React.ReactNode }) {
   const [leaveRequests, setLeaveRequests] = useState<LeaveRequestData[]>([])
-  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
+    const fetchLeaveRequests = async () => {
+      const requests = await getLeaveRequests()
+      setLeaveRequests(requests)
+    }
     fetchLeaveRequests()
   }, [])
 
-  const fetchLeaveRequests = async () => {
-    setIsLoading(true)
-    try {
-      const requests = await leaveService.getLeaveRequests()
-      setLeaveRequests(requests)
-    } catch (error) {
-      console.error('Failed to fetch leave requests:', error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
   const handleApprove = async (id: number) => {
-    try {
-      await leaveService.approve(id)
-      setLeaveRequests(requests =>
-        requests.map(request =>
-          request.id === id ? { ...request, status: 'Approved' } : request
-        )
+    await approve(id)
+    setLeaveRequests(prevRequests =>
+      prevRequests.map(request =>
+        request.id === id ? { ...request, status: 'Approved' } : request
       )
-    } catch (error) {
-      console.error('Failed to approve leave request:', error)
-    }
+    )
   }
 
   const handleReject = async (id: number) => {
-    try {
-      await leaveService.reject(id)
-      setLeaveRequests(requests =>
-        requests.map(request =>
-          request.id === id ? { ...request, status: 'Rejected' } : request
-        )
+    await reject(id)
+    setLeaveRequests(prevRequests =>
+      prevRequests.map(request =>
+        request.id === id ? { ...request, status: 'Rejected' } : request
       )
-    } catch (error) {
-      console.error('Failed to reject leave request:', error)
-    }
+    )
   }
 
   return (
-    <LeaveRequestsContext.Provider value={{ leaveRequests, isLoading, handleApprove, handleReject }}>
+    <LeaveRequestsContext.Provider value={{ leaveRequests, handleApprove, handleReject }}>
       {children}
     </LeaveRequestsContext.Provider>
   )
 }
 
-export const useLeaveRequests = () => {
+export function useLeaveRequests() {
   const context = useContext(LeaveRequestsContext)
   if (context === undefined) {
     throw new Error('useLeaveRequests must be used within a LeaveRequestsProvider')

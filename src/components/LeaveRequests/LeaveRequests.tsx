@@ -1,77 +1,77 @@
-import React from 'react';
-import { Button } from "@/components/ui/button"
-import { CheckCircle2, XCircle, Clock } from 'lucide-react';
+import React from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardFooter } from '@/components/ui/card'
+import { CheckCircle, XCircle, Clock } from 'lucide-react'
 
 interface LeaveRequestProps {
-  employee: string;
-  type: string;
-  duration: string;
-  status: 'Pending' | 'Approved' | 'Rejected';
-  onApprove: () => void;
-  onReject: () => void;
+  employee: string
+  type: string
+  duration: string
+  start_date: string
+  end_date: string
+  status: 'Pending' | 'Approved' | 'Rejected'
+  onApprove: () => void
+  onReject: () => void
 }
 
-export function LeaveRequest({ employee, type, duration, status, onApprove, onReject }: LeaveRequestProps) {
-  const getStatusStyles = () => {
+export function LeaveRequest({
+  employee,
+  type,
+  duration,
+  start_date,
+  end_date,
+  status,
+  onApprove,
+  onReject
+}: LeaveRequestProps) {
+  const getStatusColor = () => {
     switch (status) {
       case 'Approved':
-        return 'bg-green-50 border-green-200';
+        return 'bg-green-100 border-green-300'
       case 'Rejected':
-        return 'bg-red-50 border-red-200';
+        return 'bg-red-100 border-red-300'
       default:
-        return 'bg-orange-50 border-orange-200';
+        return 'bg-yellow-50 border-yellow-200'
     }
-  };
+  }
 
   const getStatusIcon = () => {
     switch (status) {
       case 'Approved':
-        return <CheckCircle2 className="w-5 h-5 text-green-500" />;
+        return <CheckCircle className="w-6 h-6 text-green-600" />
       case 'Rejected':
-        return <XCircle className="w-5 h-5 text-red-500" />;
+        return <XCircle className="w-6 h-6 text-red-600" />
       default:
-        return <Clock className="w-5 h-5 text-orange-500" />;
+        return <Clock className="w-6 h-6 text-yellow-600" />
     }
-  };
+  }
 
   return (
-    <div className={`border rounded-lg p-4 transition-all duration-300 ${getStatusStyles()}`}>
-      <div className="flex justify-between items-start mb-2">
-        <div>
-          <p className="font-medium">Leave Request</p>
-          <p className="text-sm text-muted-foreground">{employee}</p>
+    <Card className={`border-2 ${getStatusColor()} transition-colors duration-300`}>
+      <CardContent className="p-4">
+        <div className="flex justify-between items-start mb-4">
+          <h2 className="text-lg font-semibold">{employee}</h2>
+          <div className="flex items-center">
+            {getStatusIcon()}
+            <span className="ml-2 font-medium">{status}</span>
+          </div>
         </div>
-        <div className="flex items-center space-x-2">
-          {getStatusIcon()}
-          <span className={`text-sm ${
-            status === 'Pending' ? 'text-orange-500' :
-            status === 'Approved' ? 'text-green-500' :
-            'text-red-500'
-          }`}>
-            {status}
-          </span>
+        <div className="grid grid-cols-2 gap-2">
+          <p><span className="font-medium">Type:</span> {type}</p>
+          <p><span className="font-medium">Duration:</span> {duration}</p>
+          <p><span className="font-medium">Start Date:</span> {start_date}</p>
+          <p><span className="font-medium">End Date:</span> {end_date}</p>
         </div>
-      </div>
-      <p className="text-sm text-muted-foreground mb-3">{type}: {duration}</p>
-      {status === 'Pending' && (
-        <div className="flex space-x-2">
-          <Button 
-            onClick={onApprove} 
-            variant="secondary" 
-            className="px-3 py-1 bg-green-500 hover:bg-green-600 text-white text-sm transition-colors duration-300"
-          >
-            Approve
-          </Button>
-          <Button 
-            onClick={onReject} 
-            variant="secondary" 
-            className="px-3 py-1 bg-red-500 hover:bg-red-600 text-white text-sm transition-colors duration-300"
-          >
-            Reject
-          </Button>
-        </div>
-      )}
-    </div>
-  );
+      </CardContent>
+      <CardFooter className={`p-4 ${status === 'Pending' ? 'bg-gray-50' : ''}`}>
+        {status === 'Pending' && (
+          <>
+            <Button onClick={onApprove} className="mr-2 bg-green-600 hover:bg-green-700">Approve</Button>
+            <Button onClick={onReject} variant="destructive">Reject</Button>
+          </>
+        )}
+      </CardFooter>
+    </Card>
+  )
 }
 

@@ -61,7 +61,7 @@ export interface Absensi {
     id: number;
     name: string;
     tanggal: string; // date
-    status: 'hadir' | 'alpha' | 'izin';
+    status: string; //'hadir' | 'alpha' | 'izin'
     waktu_masuk: string | null;
     waktu_keluar: string | null;
 }

@@ -1,63 +1,6 @@
 import React from 'react';
 import { Clock, Edit, Trash2 } from 'lucide-react';
-
-interface Employee {
-    id: number;
-    name: string;
-    tanggal: string; // date
-    status: 'presence' | 'absence' | 'leave';
-    department: string;
-    clockIn: string | null;
-    clockOut: string | null;
-}
-
-const employees: Employee[] = [
-    {
-        id: 1,
-        name: 'John Doe',
-        tanggal: '2023-05-15',
-        status: 'presence',
-        department: 'Human Resources',
-        clockIn: '08:55 AM',
-        clockOut: '05:05 PM',
-    },
-    {
-        id: 2,
-        name: 'Jane Smith',
-        tanggal: '2023-05-15',
-        status: 'presence',
-        department: 'Finance',
-        clockIn: '09:15 AM',
-        clockOut: null,
-    },
-    {
-        id: 3,
-        name: 'Alice Johnson',
-        tanggal: '2023-05-15',
-        status: 'absence',
-        department: 'Information Technology',
-        clockIn: null,
-        clockOut: null,
-    },
-    {
-        id: 4,
-        name: 'Bob Williams',
-        tanggal: '2023-05-15',
-        status: 'leave',
-        department: 'Marketing',
-        clockIn: null,
-        clockOut: null,
-    },
-    {
-        id: 5,
-        name: 'Charlie Brown',
-        tanggal: '2023-05-15',
-        status: 'presence',
-        department: 'Information Technology',
-        clockIn: '08:30 AM',
-        clockOut: '04:45 PM',
-    },
-];
+import { getAttendance } from '@/app/services/attendance';
 
 const getDepartmentColor = (department: string) => {
     switch (department) {
@@ -76,28 +19,30 @@ const getDepartmentColor = (department: string) => {
 
 const getStatusColor = (status: string) => {
     switch (status) {
-        case 'presence':
+        case 'hadir':
             return 'bg-green-50 text-green-600';
-        case 'absence':
+        case 'alpha':
             return 'bg-red-50 text-red-600';
-        case 'leave':
+        case 'izin':
             return 'bg-yellow-50 text-yellow-600';
         default:
             return 'bg-gray-50 text-gray-600';
     }
 };
 
-export default function AttendanceTable() {
+export default async function AttendanceTable() {
+    const employees: Employee[] = await getAttendance();
+
     return (
         <div className="overflow-x-auto rounded-lg">
             <table className="min-w-full divide-y divide-gray-200 bg-white">
                 <thead>
                     <tr className="bg-blue-600 text-white uppercase text-sm leading-normal">
                         <th className="py-3 px-6 text-left">Date</th>
-                        <th className="py-3 px-6 text-left">Employee</th>
-                        <th className="py-3 px-6 text-left">Department</th>
-                        <th className="py-3 px-6 text-left">Clock In</th>
-                        <th className="py-3 px-6 text-left">Clock Out</th>
+                        <th className="py-3 px-6 text-left">Name</th>
+                        {/* <th className="py-3 px-6 text-left">Department</th> */}
+                        <th className="py-3 px-6 text-left">Waktu Masuk</th>
+                        <th className="py-3 px-6 text-left">Waktu Keluar</th>
                         <th className="py-3 px-6 text-left">Status</th>
                         <th className="py-3 px-6 text-left">Actions</th>
                     </tr>
@@ -113,13 +58,13 @@ export default function AttendanceTable() {
                                 </div>
                             </td>
 
-                            <td className="py-3 px-6">
+                            {/* <td className="py-3 px-6">
                                 <span
                                     className={`px-3 py-1 rounded-lg text-sm ${getDepartmentColor(employee.department)}`}
                                 >
                                     {employee.department}
                                 </span>
-                            </td>
+                            </td> */}
 
                             <td className="py-3 px-6">
                                 <div className="flex items-center">

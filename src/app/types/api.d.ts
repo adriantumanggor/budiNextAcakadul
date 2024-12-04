@@ -34,17 +34,6 @@ export interface MyTeam {
     role: string;
 }
 
-// Tipe untuk data kehadiran (attendance)
-export interface Attendance {
-    id: number;
-    karyawan_id: string;
-    tanggal: string;
-    waktu_masuk: string;
-    waktu_keluar: string;
-    status_absensi: string;
-    is_complete: boolean;
-}
-
 // Tipe untuk data izin/cuti (leaving)
 export interface Leaving {
     id: number;
@@ -66,4 +55,13 @@ export interface LeaveRequestData {
     start_date: string;
     end_date: string;
     status: 'Pending' | 'Approved' | 'Rejected';
+}
+
+export interface Absensi {
+    id: number;
+    name: string;
+    tanggal: string; // date
+    status: 'hadir' | 'alpha' | 'izin';
+    waktu_masuk: string | null;
+    waktu_keluar: string | null;
 }

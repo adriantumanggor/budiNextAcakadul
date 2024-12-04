@@ -1,18 +1,19 @@
 import { fetchAPI } from './api';
-import { Attendance } from '../types/api';
+import { Absensi } from '../types/api';
+
 // Fetch all absensi
-export async function getAllAbsensi(): Promise<Attendance[]> {
-    return await fetchAPI<Attendance[]>('/absensi');
+export async function getAllAbsensi(): Promise<Absensi[]> {
+    return await fetchAPI<Absensi[]>('/absensi');
 }
 
 // Fetch a single absensi by ID
-export async function getAbsensiById(id: number): Promise<Attendance> {
-    return await fetchAPI<Attendance>(`/absensi/${id}`);
+export async function getAbsensiById(id: number): Promise<Absensi> {
+    return await fetchAPI<Absensi>(`/absensi/${id}`);
 }
 
 // Create a new absensi
-export async function createAbsensi(karyawanId: string): Promise<Attendance> {
-    return await fetchAPI<Attendance>('/absensi', {
+export async function createAbsensi(karyawanId: string): Promise<Absensi> {
+    return await fetchAPI<Absensi>('/absensi', {
         method: 'POST',
         body: JSON.stringify({ karyawan_id: karyawanId }),
         headers: {
@@ -22,8 +23,8 @@ export async function createAbsensi(karyawanId: string): Promise<Attendance> {
 }
 
 // Update an existing absensi by ID
-export async function updateAbsensi(id: number, absensi: Partial<Attendance>): Promise<Attendance> {
-    return await fetchAPI<Attendance>(`/absensi/${id}`, {
+export async function updateAbsensi(id: number, absensi: Partial<Absensi>): Promise<Absensi> {
+    return await fetchAPI<Absensi>(`/absensi/${id}`, {
         method: 'PUT',
         body: JSON.stringify(absensi),
     });
